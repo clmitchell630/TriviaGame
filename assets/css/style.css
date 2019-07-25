@@ -1,0 +1,40 @@
+body {
+    background-image: url("../images/bananas.png");
+    color: #273d3d;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    padding-top: 10px;
+    font-size: 100px;
+}
+
+footer {
+    height: 50px;
+    width: 100%;
+}
+
+.container {
+    margin-top: 50px;
+    border: 5px double #8a8641;
+    background-image: url("../images/halftone-yellow.png");
+    min-height: 600px;
+}
+
+.timeout {
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+}
+
+#question {
+    text-align: center;
+    font-size: 32px;
+    padding-bottom: 20px;
+}
+
+#answers {
+    text-align: center;
+    font-size: 32px;
+}
