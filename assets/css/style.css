@@ -39,3 +39,20 @@ footer {
     text-align: center;
     font-size: 32px;
 }
+
+/*option 'button' selector styleing*/
+.option {
+    text-align: center;
+    font-size: 32px;
+    width: 50%;
+}
+.option:hover {
+    border: 1px solid #2b8c8b;
+    color: #2b8c8b;
+    cursor: pointer;
+}
+.option:active {
+    border: 1px solid #9c3ade;
+    color: #9c3ade;
+    cursor: pointer;
+}

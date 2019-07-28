@@ -1,5 +1,5 @@
 console.log(" (\\  (\\\n (^___^)\nc(_(\")(\")\n  Hello!");
-console.log("This RupeeCollector!!");
+console.log("This is Trivia Game!!");
 
 $(function(){
     //------Variables------
@@ -69,8 +69,15 @@ $(function(){
     var unanswered = 0;
 
     //------Initialization------
-        //start button .on("click" >> initialize)
+    $("#game").attr("style", "display: none !important;");
+    $("#results").attr("style", "display: none !important;");
+    $("#gameEnd").attr("style", "display: none !important;");
 
+        //start button .on("click" >> initialize)
+    $("#start").on("click", function(){
+        $("#start").attr("style", "display: none !important;");
+        $("#game").attr("style", "display: block !important;");
+    });
         //initialization after start button is pressed
 
     //------Game------
@@ -78,6 +85,7 @@ $(function(){
 
         //begin timer from 20 seconds
 
+        //.on("click" >> correct answer)
         /*game logic:
             if seconds <= 0 then unanswered++, 
             if question correct then correct ++, 
