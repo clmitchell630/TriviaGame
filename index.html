@@ -27,11 +27,13 @@
         <header class="row">
             <h1>Trivia Time!</h1>
         </header>
-        <hr/>
+        <hr />
 
         <!--game start 'page'-->
-        <div id="start" class="col-md-6 offset-md-3 option">
-            START!
+        <div id="start">
+            <div class="col-md-6 offset-md-3 option">
+                START!
+            </div>
         </div>
 
         <!--game 'page'-->
@@ -39,12 +41,14 @@
 
             <!--timer container-->
             <div class="timeout">Time Remaining: <span id="timeLeft">0</span> Seconds</div>
-            <!--question container-->
-            <div id="question">What is the 4th planet from the sun?</div>
-            <!--answers container-->
-            <div id="answers">Mercury<br/>Mars<br/>Venus<br/>Jupiter</div>
 
-        </section> 
+            <!--question container-->
+            <div id="question"></div>
+
+            <!--answers container-->
+            <div id="answers"></div>
+
+        </section>
 
         <!--results 'page'-->
         <div id="results">
@@ -55,11 +59,11 @@
         <div id="gameEnd">
 
         </div>
-        
 
-    </div> 
 
-    <footer></footer> 
+    </div>
+
+    <footer></footer>
 
 </body>
 
