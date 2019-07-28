@@ -41,17 +41,17 @@ footer {
 }
 
 /*option 'button' selector styleing*/
-.option {
+.option, .options {
     text-align: center;
     font-size: 32px;
     width: 50%;
 }
-.option:hover {
+.option:hover, .options:hover {
     border: 1px solid #2b8c8b;
     color: #2b8c8b;
     cursor: pointer;
 }
-.option:active {
+.option:active, .options:active {
     border: 1px solid #9c3ade;
     color: #9c3ade;
     cursor: pointer;
