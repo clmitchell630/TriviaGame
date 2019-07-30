@@ -76,7 +76,7 @@ $(function () {
     var incorrect = 0;
     var unanswered = 0;
     var questionNum = 0;
-    var countdown = 15;
+    var countdown = 20;
     var intermission = 5;
     var intervalId;
 
@@ -96,29 +96,6 @@ $(function () {
     //reveal 1st question - last question
     newQuestion(questionNum);
     
-
-    $(".option").on("click", function (e) {
-        //console.log($(this));
-        if ($(this).attr("data-name") === trivia[questionNum].c) {
-            //console.log("i was clicked");
-            $("#game").attr("style", "display: none !important;");
-            $("#correct").attr("style", "display: block !important;");
-            correct++;
-            $("#correct").text("Correct: " + correct);
-        }
-        else {
-            //console.log("i was not clicked and something is broken");
-            //console.log(trivia[0].a[trivia[0].c]);
-            $("#game").attr("style", "display: none !important;");
-            $("#results").attr("style", "display: block !important;");
-            incorrect++;
-            $("#incorrect").text("Incorrect: " + incorrect);
-        }
-    });
-
-    //begin timer from 20 seconds
-
-
     //.on("click" >> correct answer)
     /*game logic:
         if seconds <= 0 then unanswered++, 
@@ -127,6 +104,30 @@ $(function () {
     */
     //------Results------
     //new screen will appear displaying your results
+    $(".option").on("click", function (e) {
+        //console.log($(this));
+        if ($(this).attr("data-name") === trivia[questionNum].c) {
+            //console.log("i was clicked");
+            $("#game").attr("style", "display: none !important;");
+            $("#correct").attr("style", "display: block !important;");
+            correct++;
+            $("#correct").text("Correct: " + correct);
+
+            timerIntermission();
+        }
+        else {
+            //console.log("i was not clicked and something is broken");
+            //console.log(trivia[0].a[trivia[0].c]);
+            $("#game").attr("style", "display: none !important;");
+            $("#results").attr("style", "display: block !important;");
+            incorrect++;
+            $("#incorrect").text("Incorrect: " + incorrect);
+
+            timerIntermission();
+        }
+    });
+
+
     //------End game------
     //overall results will appear
     //option to restart the quiz
@@ -150,6 +151,11 @@ $(function () {
         intervalId = setInterval(timer, 1000);
     }
 
+    function interStart() {
+        clearInterval(intervalId);
+        intervalId = setInterval(timerIntermission, 1000);
+    }
+
     function timer() {
 
         countdown--;
@@ -164,23 +170,34 @@ $(function () {
             $("#results").attr("style", "display: block !important;");
             unanswered++;
             $("#unanswered").text("Unanswered: " + unanswered);
+            
+            timerIntermission();
         }
     }
 
     function timerIntermission() {
         
+        interStart();
         intermission--;
 
         if (intermission === 0) {
             timerStop();
 
-            $("#results").attr("style", "display: none !important;");
-            
-            questionNum++;
+            countdown = 20;
+            $("#timeLeft").html(countdown);
 
-            $("#game").attr("")
+            $("#answers").empty();
+
+            questionNum++;
+            newQuestion(questionNum);
+
+            $("#results").attr("style", "display: none !important;");
+            $("#game").attr("style", "display: block !important;");
+
+            timerStart();
+            intermission = 5;
         }
-        
+
     }
 
     function timerStop() {
