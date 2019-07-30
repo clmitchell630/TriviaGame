@@ -8,7 +8,7 @@ $(function () {
         {//question 1
             q: "The Office: According to Jim(dressed as Dwight), which bear is best?",
             a: ["A. Grizzly bear",
-                "B. Polar bear", 
+                "B. Polar bear",
                 "C. Black bear",
                 "D. All of the above"],
             c: "2"
@@ -35,7 +35,7 @@ $(function () {
                 "B. ",
                 "C. ",
                 "D. "],
-            c: "4"
+            c: "3"
         },
         {//question 5
             q: "Bobs Burgers: ",
@@ -51,10 +51,10 @@ $(function () {
                 "B. ",
                 "C. ",
                 "D. "],
-            c: "4"
+            c: "2"
         },
         {//question 7
-            q: "Friends: ",
+            q: "That 70s Show: ",
             a: ["A. ",
                 "B. ",
                 "C. ",
@@ -67,7 +67,7 @@ $(function () {
                 "B. Horseradish",
                 "C. Both A and B",
                 "D. All of the above"],
-            c: "4"
+            c: "3"
         },
     ];
 
@@ -76,6 +76,9 @@ $(function () {
     var incorrect = 0;
     var unanswered = 0;
     var questionNum = 0;
+    var countdown = 15;
+    var intermission = 5;
+    var intervalId;
 
     //------Initialization------
     $("#game").attr("style", "display: none !important;");
@@ -86,35 +89,35 @@ $(function () {
     $("#start").on("click", function () {
         $("#start").attr("style", "display: none !important;");
         $("#game").attr("style", "display: block !important;");
+        timerStart();
     });
 
     //------Game------
     //reveal 1st question - last question
     newQuestion(questionNum);
+    
 
-    $(".option").on("click", function(e){
+    $(".option").on("click", function (e) {
         //console.log($(this));
-        if($(this).attr("data-name") === trivia[questionNum].c){
+        if ($(this).attr("data-name") === trivia[questionNum].c) {
             //console.log("i was clicked");
             $("#game").attr("style", "display: none !important;");
             $("#correct").attr("style", "display: block !important;");
-            correct ++;
+            correct++;
             $("#correct").text("Correct: " + correct);
         }
-        else{
+        else {
             //console.log("i was not clicked and something is broken");
             //console.log(trivia[0].a[trivia[0].c]);
             $("#game").attr("style", "display: none !important;");
             $("#results").attr("style", "display: block !important;");
-            incorrect ++;
+            incorrect++;
             $("#incorrect").text("Incorrect: " + incorrect);
         }
-        
-            
     });
-    
-    
+
     //begin timer from 20 seconds
+
 
     //.on("click" >> correct answer)
     /*game logic:
@@ -129,16 +132,58 @@ $(function () {
     //option to restart the quiz
 
     //------Functions------
-    
-    function newQuestion(i){
+
+    function newQuestion(i) {
         $("#question").text(trivia[i].q);
 
-        for(var j = 0; j <trivia[i].a.length; j++){
+        for (var j = 0; j < trivia[i].a.length; j++) {
             var newDiv = $("<div>");
             newDiv.addClass("col-md-6 offset-md-3 option");
             newDiv.attr("data-name", j);
             newDiv.text(trivia[i].a[j]);
             $("#answers").append(newDiv);
         }
+    }
+
+    function timerStart() {
+        clearInterval(intervalId);
+        intervalId = setInterval(timer, 1000);
+    }
+
+    function timer() {
+
+        countdown--;
+
+        $("#timeLeft").html(countdown);
+
+        if (countdown === 0) {
+
+            timerStop();
+
+            $("#game").attr("style", "display: none !important;");
+            $("#results").attr("style", "display: block !important;");
+            unanswered++;
+            $("#unanswered").text("Unanswered: " + unanswered);
+        }
+    }
+
+    function timerIntermission() {
+        
+        intermission--;
+
+        if (intermission === 0) {
+            timerStop();
+
+            $("#results").attr("style", "display: none !important;");
+            
+            questionNum++;
+
+            $("#game").attr("")
+        }
+        
+    }
+
+    function timerStop() {
+        clearInterval(intervalId);
     }
 });
