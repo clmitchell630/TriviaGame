@@ -14,11 +14,11 @@ $(function () {
             c: "2"
         },
         {//question 2
-            q: "Family Guy: ",
-            a: ["A. ",
-                "B. ",
-                "C. ",
-                "D. "],
+            q: "Family Guy: What is the name of the Korean drama character Quagmire plays in \"Candy, Quahog, Marshmallow\"?",
+            a: ["A. American Frank",
+                "B. American Johnny",
+                "C. American Dad",
+                "D. American Pie"],
             c: "1"
         },
         {//question 3
@@ -30,35 +30,35 @@ $(function () {
             c: "0"
         },
         {//question 4
-            q: "The Big Bang Theory: ",
-            a: ["A. ",
-                "B. ",
-                "C. ",
-                "D. "],
+            q: "The Big Bang Theory: Which friend does Leonard's mom kiss?",
+            a: ["A. Penny",
+                "B. Raj",
+                "C. Howard",
+                "D. Sheldon"],
             c: "3"
         },
         {//question 5
-            q: "Bobs Burgers: ",
-            a: ["A. ",
-                "B. ",
-                "C. ",
-                "D. "],
-            c: "1"
+            q: "Bob's Burgers: How much does a burger of the day cost?",
+            a: ["A. $0.99",
+                "B. $2.95",
+                "C. $3.99",
+                "D. $5.95"],
+            c: "3"
         },
         {//question 6
-            q: "Seinfield: ",
-            a: ["A. ",
-                "B. ",
-                "C. ",
-                "D. "],
+            q: "Seinfeld: What was the Soup \"Nazi's\" go to phrase when rejecting a customer?",
+            a: ["A. \"Get outta here!\"",
+                "B. \"I'll kill you\"",
+                "C. \"No soup for you!\"",
+                "D. None of the above"],
             c: "2"
         },
         {//question 7
-            q: "That 70s Show: ",
-            a: ["A. ",
-                "B. ",
-                "C. ",
-                "D. "],
+            q: "That 70s Show: What building does the cast routinely fall off of?",
+            a: ["A. Water tower",
+                "B. Price Mart",
+                "C. Forman's roof",
+                "D. None of the above"],
             c: "0"
         },
         {//question 8
@@ -95,38 +95,6 @@ $(function () {
     //------Game------
     //reveal 1st question - last question
     newQuestion(questionNum);
-    
-    //.on("click" >> correct answer)
-    /*game logic:
-        if seconds <= 0 then unanswered++, 
-        if question correct then correct ++, 
-        if question incorrect then incorrect ++
-    */
-    //------Results------
-    //new screen will appear displaying your results
-    $(".option").on("click", function (e) {
-        //console.log($(this));
-        if ($(this).attr("data-name") === trivia[questionNum].c) {
-            //console.log("i was clicked");
-            $("#game").attr("style", "display: none !important;");
-            $("#correct").attr("style", "display: block !important;");
-            correct++;
-            $("#correct").text("Correct: " + correct);
-
-            timerIntermission();
-        }
-        else {
-            //console.log("i was not clicked and something is broken");
-            //console.log(trivia[0].a[trivia[0].c]);
-            $("#game").attr("style", "display: none !important;");
-            $("#results").attr("style", "display: block !important;");
-            incorrect++;
-            $("#incorrect").text("Incorrect: " + incorrect);
-
-            timerIntermission();
-        }
-    });
-
 
     //------End game------
     //overall results will appear
@@ -144,6 +112,44 @@ $(function () {
             newDiv.text(trivia[i].a[j]);
             $("#answers").append(newDiv);
         }
+        $(".option").on("click", optionClicker);
+    }
+
+    function optionClicker() {
+        //.on("click" >> correct answer)
+        /*game logic:
+            if seconds <= 0 then unanswered++, 
+            if question correct then correct ++, 
+            if question incorrect then incorrect ++
+        */
+        //------Results------
+        //new screen will appear displaying your results
+        if ($(this).attr("data-name") === trivia[questionNum].c) {
+            //console.log("i was clicked");
+            $("#game").attr("style", "display: none !important;");
+            $("#results").attr("style", "display: block !important;");
+            correct++;
+            $("#correctAnswer").text("CORRECT!");
+            var newDiv = $("<div>");
+            newDiv.text("The Correct answer was " + trivia[questionNum].a[trivia[questionNum].c] + "!");
+            $("#correctAnswer").append(newDiv);
+
+            interStart();
+        }
+        else {
+            //console.log("i was not clicked and something is broken");
+            //console.log(trivia[0].a[trivia[0].c]);
+            $("#game").attr("style", "display: none !important;");
+            $("#results").attr("style", "display: block !important;");
+            incorrect++;
+            $("#incorrectAnswer").text("INCORRECT!");
+            var newDiv = $("<div>");
+            newDiv.text("The Correct answer is " + trivia[questionNum].a[trivia[questionNum].c] + "!");
+            $("#incorrectAnswer").append(newDiv);
+
+            interStart();
+        }
+
     }
 
     function timerStart() {
@@ -170,13 +176,13 @@ $(function () {
             $("#results").attr("style", "display: block !important;");
             unanswered++;
             $("#unanswered").text("Unanswered: " + unanswered);
-            
-            timerIntermission();
+
+            interStart();
         }
     }
 
     function timerIntermission() {
-        
+
         interStart();
         intermission--;
 
@@ -194,6 +200,9 @@ $(function () {
             $("#results").attr("style", "display: none !important;");
             $("#game").attr("style", "display: block !important;");
 
+            $("#correctAnswer").empty();
+            $("#incorrectAnswer").empty();
+            
             timerStart();
             intermission = 5;
         }

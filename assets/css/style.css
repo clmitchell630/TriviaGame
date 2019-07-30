@@ -39,6 +39,10 @@ footer {
     text-align: center;
     font-size: 32px;
 }
+#results {
+    text-align: center;
+    font-size: 28px;
+}
 
 /*option 'button' selector styleing*/
 .option, .options {
