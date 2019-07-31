@@ -39,7 +39,7 @@ footer {
     text-align: center;
     font-size: 32px;
 }
-#results {
+#results, #gameEnd {
     text-align: center;
     font-size: 28px;
 }
